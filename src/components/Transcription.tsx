@@ -1,4 +1,5 @@
 "use client";
+import FadeInAll from "@/utils/FadeInAll";
 import React, { useState, useRef, useEffect } from "react";
 
 interface Message {
@@ -65,17 +66,19 @@ const Transcription: React.FC<TranscriptionProps> = ({
           className={`flex ${
             message.role === "agent" ? "justify-start" : "justify-end"
           } items-start`}>
-          <button
-            onClick={() => handleJumpToTime(message.start, message.end)}
-            className='bg-[#f1f1f1] relative p-4 rounded-3xl shadow-md text-left transition-all duration-300 hover:-translate-y-1'>
-            <p
-              className={`font-semibold text-sm md:text-base ${
-                message.role === "agent" ? "text-[#ff7373]" : "text-[blue]"
-              } capitalize`}>
-              {message.role}
-            </p>
-            <p className="text-sm md:text-base">{message.content}</p>
-          </button>
+          <FadeInAll delayIncrement={index * 0.1}>
+            <button
+              onClick={() => handleJumpToTime(message.start, message.end)}
+              className='bg-[#f1f1f1] relative p-4 rounded-3xl shadow-md text-left transition-all duration-300 hover:-translate-y-1'>
+              <p
+                className={`font-semibold text-sm md:text-base ${
+                  message.role === "agent" ? "text-[#ff7373]" : "text-[blue]"
+                } capitalize`}>
+                {message.role}
+              </p>
+              <p className='text-sm md:text-base'>{message.content}</p>
+            </button>
+          </FadeInAll>
         </div>
       ))}
       <audio
